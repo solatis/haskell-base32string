@@ -86,7 +86,7 @@ fromText table = b32String table . TE.encodeUtf8
 
 isValidBase32 :: BS.ByteString -> Word8 -> Bool
 isValidBase32 table c =
-  BS.elem c table
+  c `BS.elem` table
 
 b32 :: BS.ByteString -> Word8 -> Word8
 b32 table i = BS.index table (fromIntegral i)
