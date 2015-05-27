@@ -1,5 +1,6 @@
 module Data.Base32String.Default ( B32.Base32String
                                  , b32String
+                                 , b32String'
                                  , fromBinary
                                  , toBinary
                                  , fromBytes
@@ -30,6 +31,9 @@ instance ToJSON B32.Base32String where
 
 b32String :: BS.ByteString -> B32.Base32String
 b32String = B32.b32String table
+
+b32String' :: BS.ByteString -> B32.Base32String
+b32String' = B32.b32String' table
 
 fromBinary :: B.Binary a => a -> B32.Base32String
 fromBinary = B32.fromBinary table

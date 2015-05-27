@@ -1,5 +1,6 @@
 module Data.Base32String ( Base32String
                          , b32String
+                         , b32String'
                          , fromBinary
                          , toBinary
                          , fromBytes
@@ -45,6 +46,14 @@ b32String table bs =
   if   BS.all (isValidBase32 table) bs
   then Base32String bs
   else error ("Not a valid base32 string: " ++ show bs)
+
+-- | Case insensitive variant of 'b32String', which converts all characters
+--   to upper case.
+b32String' :: BS.ByteString -- ^ Our Base32 mapping table
+           -> BS.ByteString -- ^ Our Base32 string
+           -> Base32String
+b32String' table bs =
+  b32String table (TE.encodeUtf8 . T.toUpper . TE.decodeUtf8 $ bs)
 
 -- | Converts a 'B.Binary' to a 'Base32String' value
 fromBinary :: B.Binary a
